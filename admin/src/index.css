@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  /* Page sits on the warm tone; cards sit a step above it. Keeps long working sessions off
+     the brightest end of the palette. */
+  body {
+    @apply bg-background-warm font-sans text-text-secondary antialiased;
+  }
+
+  ::selection {
+    @apply bg-brand text-text-primary;
+  }
+
+  ::-webkit-scrollbar {
+    width: 9px;
+    height: 9px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-background-warm;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-line-strong;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-brand-bronze;
+  }
+}
+
+@layer components {
+  .card {
+    @apply rounded-2xl border border-line bg-background shadow-soft;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-[13px] font-semibold
+           transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-ink
+           focus-visible:ring-offset-2 focus-visible:ring-offset-background
+           disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  /* Gold fill carries primary type at 6:1. */
+  .btn-primary {
+    @apply btn bg-brand text-text-primary shadow-soft hover:bg-brand-hover;
+  }
+
+  .btn-secondary {
+    @apply btn border border-line-strong bg-background text-text-primary hover:border-brand-bronze hover:bg-background-warm;
+  }
+
+  .btn-danger {
+    @apply btn border border-state-danger/40 bg-state-danger-soft text-state-danger hover:border-state-danger;
+  }
+
+  .btn-sm {
+    @apply !px-3 !py-1.5 !text-[12px];
+  }
+
+  /* text-secondary, never muted — these are small and must clear AA. */
+  .field-label {
+    @apply mb-1.5 block text-[11px] font-medium text-text-secondary;
+  }
+
+  .field {
+    @apply w-full rounded-xl border border-line-strong bg-background px-3 py-2.5 text-[13px] text-text-primary
+           transition-colors placeholder:text-text-muted
+           focus:border-brand focus:outline-none focus:ring-1 focus:ring-brand
+           disabled:opacity-60;
+  }
+
+  .field::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    opacity: 0.55;
+  }
+
+  .table-head {
+    @apply bg-background-deep px-4 py-3 text-left text-[10px] font-bold uppercase tracking-wider text-text-secondary;
+  }
+
+  .table-cell {
+    @apply px-4 py-3.5 text-[13px] text-text-secondary;
+  }
+}

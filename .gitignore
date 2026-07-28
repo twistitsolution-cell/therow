@@ -1,0 +1,35 @@
+# Node
+node_modules/
+dist/
+.env
+.env.local
+*.log
+
+# .NET
+bin/
+obj/
+publish/
+*.user
+
+# Uploads are user data, not source — back them up, do not commit them
+backend/src/TheRow.API/wwwroot/uploads/
+
+# OS
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Image tooling deps (run `npm install` inside tools/images when regenerating)
+tools/images/node_modules/
+
+# Local secrets — dev connection string, JWT key, seed password
+appsettings.Development.json
+appsettings.*.Local.json
+
+# Netlify CLI state
+.netlify/
+
+# The original photography folder is the client's source material, not source code.
+# It is ~4.5 MB of duplicates and rejects; the curated, graded output lives in web/public/images.
+booking.com phto/
+booking.com phto.zip

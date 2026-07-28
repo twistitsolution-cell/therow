@@ -1,0 +1,54 @@
+# Netlify configuration for the PUBLIC WEBSITE.
+#
+# The admin panel is a second, separate Netlify site built from the same repository — it has its
+# own config at admin/netlify.toml. Point that site's "Base directory" at `admin`.
+#
+# NOTE ON PATHS: when `base` is set, `publish` is resolved RELATIVE TO IT. So `publish = "dist"`
+# here means `web/dist`. Writing `web/dist` would resolve to `web/web/dist` and fail the deploy.
+
+[build]
+  base = "web"
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  # Vite 5 needs Node 18+; 22 matches what the project was developed and tested against.
+  NODE_VERSION = "22"
+
+# ---------------------------------------------------------------------------
+# SPA fallback. Without this every deep link (/rooms/apartment, /booking, …)
+# returns a hard 404 on refresh, because no such file exists on disk.
+# Must be the LAST redirect rule so it never shadows a real asset.
+# ---------------------------------------------------------------------------
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# ---------------------------------------------------------------------------
+# Caching. Vite fingerprints everything in /assets, so those are immutable.
+# Images are content-addressed by the build pipeline and equally safe to pin.
+# index.html must NEVER be cached hard or a deploy will not be picked up.
+# ---------------------------------------------------------------------------
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "SAMEORIGIN"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"

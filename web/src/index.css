@@ -1,0 +1,200 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    /* Anchored sections clear the fixed navbar. */
+    scroll-padding-top: 6rem;
+  }
+
+  body {
+    @apply bg-background font-sans text-text-secondary antialiased;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    @apply bg-brand text-text-primary;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-background-warm;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-line-strong;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-brand-bronze;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  .container-luxe {
+    @apply mx-auto w-full max-w-[1400px] px-5 sm:px-8 lg:px-12;
+  }
+
+  /* brand-ink on light surfaces — the lighter golds sit under 3:1 there. */
+  .eyebrow {
+    @apply text-[11px] font-semibold uppercase tracking-luxe text-brand-ink;
+  }
+
+  /* The inverse, for eyebrows sitting on a photograph under a dark scrim. */
+  .eyebrow-on-dark {
+    @apply text-[11px] font-semibold uppercase tracking-luxe text-brand-onDark;
+  }
+
+  .heading-display {
+    @apply font-display font-normal leading-[1.08] tracking-tight text-text-primary;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-[13px]
+           font-semibold uppercase tracking-brand transition-all duration-300
+           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-ink focus-visible:ring-offset-2
+           focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  /* Gold fill carries primary type at 6.2:1. */
+  .btn-gold {
+    @apply btn bg-brand text-text-primary shadow-soft
+           hover:-translate-y-0.5 hover:bg-brand-hover hover:text-background-soft hover:shadow-gold;
+  }
+
+  .btn-ink {
+    @apply btn bg-text-primary text-background-soft shadow-soft hover:-translate-y-0.5 hover:shadow-luxury;
+  }
+
+  .btn-outline {
+    @apply btn border border-brand-bronze/55 bg-background-soft/70 text-brand-ink backdrop-blur-sm
+           hover:border-brand-hover hover:bg-brand/15;
+  }
+
+  .btn-ghost {
+    @apply btn border border-line-strong bg-background-soft/85 text-text-primary backdrop-blur-sm
+           hover:border-brand-bronze hover:bg-background-soft;
+  }
+
+  /* Outline button sitting on a photograph — borders and type invert to light. */
+  .btn-outline-on-dark {
+    @apply btn border border-background-soft/60 bg-background-soft/10 text-background-soft backdrop-blur-md
+           hover:border-background-soft hover:bg-background-soft/20;
+  }
+
+  .glass {
+    @apply border border-line bg-background-soft/85 backdrop-blur-xl;
+  }
+
+  .glass-strong {
+    @apply border border-line bg-background-soft/95 backdrop-blur-2xl;
+  }
+
+  .surface {
+    @apply rounded-2xl border border-line bg-background-soft shadow-soft;
+  }
+
+  /* text-secondary, never muted — at 10px these are small text and must clear AA. */
+  .field-label {
+    @apply mb-1.5 block text-[10px] font-semibold uppercase tracking-brand text-text-secondary;
+  }
+
+  .field {
+    @apply w-full rounded-xl border border-line-strong bg-background-soft px-3.5 py-2.5 text-sm text-text-primary
+           transition-colors placeholder:text-text-muted
+           focus:border-brand focus:outline-none focus:ring-1 focus:ring-brand;
+  }
+
+  .field::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    opacity: 0.55;
+  }
+
+  .hairline {
+    @apply h-px w-full bg-gradient-to-r from-transparent via-brand to-transparent;
+  }
+
+  .gold-text {
+    @apply bg-gold-sheen bg-clip-text text-transparent;
+  }
+
+  .card-hover {
+    @apply transition-all duration-500 hover:-translate-y-1.5 hover:shadow-luxury-lg;
+  }
+
+  .img-frame {
+    @apply overflow-hidden rounded-2xl bg-background-warm;
+  }
+
+  .img-zoom {
+    @apply h-full w-full object-cover transition-transform duration-[1.4s] ease-out;
+  }
+
+  .group:hover .img-zoom {
+    @apply scale-[1.07];
+  }
+}
+
+@layer utilities {
+  /**
+   * Scrim stack for any photograph carrying type.
+   *
+   * `.scrim` is the flat 26% layer that holds the whole frame down without bleaching it —
+   * the photograph stays clearly readable through it. `.scrim-side` and `.scrim-foot` add
+   * density only where the headline and the booking bar actually sit.
+   */
+  .scrim {
+    @apply pointer-events-none absolute inset-0 bg-scrim-flat;
+  }
+  .scrim-side {
+    @apply pointer-events-none absolute inset-0 bg-scrim-side;
+  }
+  .scrim-foot {
+    @apply pointer-events-none absolute inset-0 bg-scrim-foot;
+  }
+  .scrim-header {
+    @apply pointer-events-none absolute inset-0 bg-scrim-header;
+  }
+
+  .parallax-fixed {
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+  }
+
+  /* iOS Safari does not support background-attachment: fixed. */
+  @supports (-webkit-touch-callout: none) {
+    .parallax-fixed {
+      background-attachment: scroll;
+    }
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}

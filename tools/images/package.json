@@ -1,0 +1,13 @@
+{
+  "name": "therow-image-tools",
+  "private": true,
+  "type": "module",
+  "description": "Curates, grades and right-sizes the property photography into web/public/images",
+  "scripts": {
+    "analyse": "node analyse-images.mjs",
+    "build": "node build-images.mjs"
+  },
+  "dependencies": {
+    "sharp": "^0.34.0"
+  }
+}
