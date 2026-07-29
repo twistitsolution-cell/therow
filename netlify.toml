@@ -1,37 +1,52 @@
-# Netlify configuration for the PUBLIC WEBSITE.
+# Netlify configuration.
 #
-# The admin panel is a second, separate Netlify site built from the same repository — it has its
-# own config at admin/netlify.toml. Point that site's "Base directory" at `admin`.
+# ONE site serves both apps: the public website at the root, and the admin panel at /admin.
+# They are deployed together because creating a second Netlify site needs dashboard access, and
+# a single deploy keeps the two in lockstep — you cannot ship a frontend change that the admin
+# has not been rebuilt against.
 #
-# NOTE ON PATHS: when `base` is set, `publish` is resolved RELATIVE TO IT. So `publish = "dist"`
-# here means `web/dist`. Writing `web/dist` would resolve to `web/web/dist` and fail the deploy.
+# No `base` is set, so `publish` is resolved from the repository root. That is deliberate: with
+# `base` set, `publish` becomes relative to it, and `web/dist` would silently resolve to
+# `web/web/dist`.
 
 [build]
-  base = "web"
-  command = "npm run build"
-  publish = "dist"
+  publish = "web/dist"
+  command = """
+    npm --prefix web ci && npm --prefix web run build && \
+    npm --prefix admin ci && npm --prefix admin run build && \
+    rm -rf web/dist/admin && cp -r admin/dist web/dist/admin
+  """
 
 [build.environment]
   # Vite 5 needs Node 18+; 22 matches what the project was developed and tested against.
   NODE_VERSION = "22"
 
 # ---------------------------------------------------------------------------
-# SPA fallback. Without this every deep link (/rooms/apartment, /booking, …)
-# returns a hard 404 on refresh, because no such file exists on disk.
-# Must be the LAST redirect rule so it never shadows a real asset.
+# Redirects are evaluated top-down and the FIRST match wins, so the admin rule
+# must precede the site-wide SPA fallback. Reverse them and every /admin route
+# renders the public homepage instead.
 # ---------------------------------------------------------------------------
+[[redirects]]
+  from = "/admin/*"
+  to = "/admin/index.html"
+  status = 200
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
 
 # ---------------------------------------------------------------------------
-# Caching. Vite fingerprints everything in /assets, so those are immutable.
-# Images are content-addressed by the build pipeline and equally safe to pin.
-# index.html must NEVER be cached hard or a deploy will not be picked up.
+# Caching. Vite fingerprints everything under /assets, so those are immutable.
+# Both index.html files must stay uncached or a deploy is never picked up.
 # ---------------------------------------------------------------------------
 [[headers]]
   for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/admin/assets/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
@@ -44,6 +59,16 @@
   for = "/index.html"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/admin/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+    # The back office must never be indexed or embedded in a frame.
+    X-Robots-Tag = "noindex, nofollow, noarchive"
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
 
 [[headers]]
   for = "/*"

@@ -1,0 +1,7 @@
+# The back office is not for crawlers. The /admin path is additionally served with
+# X-Robots-Tag: noindex, so this is defence in depth rather than the only control.
+User-agent: *
+Disallow: /admin
+Allow: /
+
+Sitemap: https://therowresidentialhotel.com/sitemap.xml

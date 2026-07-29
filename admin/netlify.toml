@@ -1,8 +1,13 @@
-# Netlify configuration for the ADMIN PANEL.
+# ALTERNATIVE configuration — NOT the one in use.
 #
-# Deploy this as a SECOND Netlify site from the same repository, with
-# "Base directory" set to `admin`. Netlify then reads this file and `publish = "dist"`
-# resolves to admin/dist.
+# The admin currently ships inside the public site's deploy at /admin, configured by the
+# netlify.toml at the repository root. That is what deploys today.
+#
+# Use this file only if you later split the admin onto its OWN Netlify site, which gives it a
+# separate hostname and lets you put Netlify Identity or password protection in front of it.
+# Create a second project from this repository with "Base directory" set to `admin`; Netlify
+# then reads this file and `publish = "dist"` resolves to admin/dist. Note that vite.config.js
+# sets base to "/admin/" in production, so a standalone deploy needs that changed back to "/".
 #
 # The admin panel is useless without the .NET API — it is entirely authenticated calls.
 # Set VITE_API_BASE_URL on the site before deploying, and add the resulting Netlify URL to
