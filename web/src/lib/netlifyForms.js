@@ -27,13 +27,20 @@ async function submit(formName, fields) {
     body: encode({ 'form-name': formName, ...fields }),
   })
 
-  // Netlify answers 200 on success; a 404 means form detection did not pick this form up at
-  // build time, which is a deploy problem rather than something the guest can retry past.
+  // Netlify answers 200 on success. A 404 means the site has form detection turned off, or the
+  // hidden copy in index.html is missing — either way the guest cannot retry past it, so give
+  // them the phone number rather than a deploy error they cannot act on. The technical cause
+  // goes to the console for whoever is debugging the deploy.
   if (!response.ok) {
+    if (response.status === 404) {
+      console.error(
+        `[netlify-forms] "${formName}" was not registered. Enable form detection under ` +
+          'Site configuration → Forms, then redeploy. The hidden form must also be present in index.html.',
+      )
+    }
+
     throw new Error(
-      response.status === 404
-        ? `Netlify did not register the "${formName}" form. Check the hidden copy in index.html and redeploy.`
-        : `Enquiry could not be sent (${response.status}).`,
+      'We could not send that just now. Please call reservations on +251 956 000 055 or message us on WhatsApp and we will take your booking directly.',
     )
   }
 }
