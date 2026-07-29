@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { ChevronLeft, ChevronRight, Loader2, Search, X } from 'lucide-react'
-import { api } from '../lib/api'
+import { api, apiUnreachableMessage } from '../lib/api'
 import { formatDate, formatDateTime, formatEtb, humanise } from '../lib/format'
 import { Alert, Badge, EmptyState, Modal, PageTitle, Spinner, TableShell } from '../components/ui'
 import { useAuth } from '../context/AuthContext'
@@ -44,7 +44,7 @@ export default function Bookings() {
       setResult(await api.bookings(filter))
     } catch (err) {
       setError(
-        err.status === undefined ? 'Cannot reach the API. Check that TheRow.API is running.' : err.message,
+        err.status === undefined ? apiUnreachableMessage() : err.message,
       )
     } finally {
       setLoading(false)

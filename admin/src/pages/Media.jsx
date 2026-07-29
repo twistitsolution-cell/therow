@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Copy, FolderOpen, Loader2, Trash2, Upload } from 'lucide-react'
-import { api } from '../lib/api'
+import { api, apiUnreachableMessage } from '../lib/api'
 import { formatDate } from '../lib/format'
 import { Alert, ConfirmDialog, EmptyState, PageTitle, Spinner } from '../components/ui'
 import { useAuth } from '../context/AuthContext'
@@ -34,7 +34,7 @@ export default function Media() {
       setAssets(assetList)
       setFolders(folderList)
     } catch (err) {
-      setError(err.status === undefined ? 'Cannot reach the API.' : err.message)
+      setError(err.status === undefined ? apiUnreachableMessage() : err.message)
     } finally {
       setLoading(false)
     }

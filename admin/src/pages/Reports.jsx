@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { api } from '../lib/api'
+import { api, apiUnreachableMessage } from '../lib/api'
 import { addDays, formatEtb, formatNumber, humanise, toDateInput } from '../lib/format'
 import { Alert, EmptyState, PageTitle, Spinner } from '../components/ui'
 import { BarChart, HorizontalBars, LineChart, Legend } from '../components/Charts'
@@ -29,7 +29,7 @@ export default function Reports() {
     try {
       setReports(await api.reports(range.from, range.to))
     } catch (err) {
-      setError(err.status === undefined ? 'Cannot reach the API.' : err.message)
+      setError(err.status === undefined ? apiUnreachableMessage() : err.message)
     } finally {
       setLoading(false)
     }

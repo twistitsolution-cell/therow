@@ -1,6 +1,33 @@
 const BASE = import.meta.env.VITE_API_BASE_URL ?? ''
 const TOKEN_KEY = 'therow.admin.token'
 
+const isLocal = typeof window !== 'undefined' && /^(localhost|127\.0\.0\.1)$/.test(window.location.hostname)
+
+/**
+ * One explanation for "the API did not answer", written for wherever the panel is running.
+ *
+ * On a developer's machine that means the process is not started. On a deployed host it almost
+ * always means no API has been pointed at yet — telling that user to check port 5080 sends them
+ * looking for something that was never going to be there.
+ */
+export function apiUnreachableMessage() {
+  if (isLocal) {
+    return 'Cannot reach the API. Check that TheRow.API is running on http://localhost:5080.'
+  }
+
+  if (!BASE) {
+    return (
+      'This deployment has no API configured, so the admin panel cannot sign in or load data. ' +
+      'Host TheRow.API, then set VITE_API_BASE_URL on the site and redeploy.'
+    )
+  }
+
+  return (
+    `Cannot reach the API at ${BASE}. It may be down, or this site's address may be missing from ` +
+    'its allowed CORS origins.'
+  )
+}
+
 export const tokenStore = {
   get: () => localStorage.getItem(TOKEN_KEY),
   set: (token) => localStorage.setItem(TOKEN_KEY, token),

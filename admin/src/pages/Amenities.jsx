@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Loader2, Pencil, Plus, Star, Trash2 } from 'lucide-react'
-import { api } from '../lib/api'
+import { api, apiUnreachableMessage } from '../lib/api'
 import { Alert, Badge, ConfirmDialog, EmptyState, Modal, PageTitle, Spinner, TableShell } from '../components/ui'
 import ImagePreview from '../components/ImagePreview'
 import { useAuth } from '../context/AuthContext'
@@ -35,7 +35,7 @@ export default function Amenities() {
     try {
       setAmenities(await api.amenities())
     } catch (err) {
-      setError(err.status === undefined ? 'Cannot reach the API.' : err.message)
+      setError(err.status === undefined ? apiUnreachableMessage() : err.message)
     } finally {
       setLoading(false)
     }

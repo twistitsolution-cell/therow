@@ -12,7 +12,7 @@ import {
   Users,
   Wallet,
 } from 'lucide-react'
-import { api } from '../lib/api'
+import { api, apiUnreachableMessage } from '../lib/api'
 import { formatEtb, formatNumber, humanise } from '../lib/format'
 import { Alert, Badge, EmptyState, PageTitle, Spinner } from '../components/ui'
 import { BarChart, HorizontalBars } from '../components/Charts'
@@ -67,7 +67,7 @@ export default function Dashboard() {
       .catch((err) =>
         setError(
           err.status === undefined
-            ? 'Cannot reach the API. Check that TheRow.API is running and the database is available.'
+            ? apiUnreachableMessage()
             : err.message,
         ),
       )

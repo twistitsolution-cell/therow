@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Loader2, Pencil, Plus, Shield, Trash2 } from 'lucide-react'
-import { api } from '../lib/api'
+import { api, apiUnreachableMessage } from '../lib/api'
 import { formatDateTime } from '../lib/format'
 import { Alert, Badge, ConfirmDialog, EmptyState, Modal, PageTitle, Spinner, TableShell } from '../components/ui'
 import { useAuth } from '../context/AuthContext'
@@ -33,7 +33,7 @@ export default function Users() {
       setRoles(roleList)
       setPermissions(permissionList)
     } catch (err) {
-      setError(err.status === undefined ? 'Cannot reach the API.' : err.message)
+      setError(err.status === undefined ? apiUnreachableMessage() : err.message)
     } finally {
       setLoading(false)
     }

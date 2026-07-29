@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Check, Loader2, Mail, Pencil, Plus, Star, Trash2 } from 'lucide-react'
-import { api } from '../lib/api'
+import { api, apiUnreachableMessage } from '../lib/api'
 import { formatDateTime } from '../lib/format'
 import { Alert, Badge, ConfirmDialog, EmptyState, Modal, PageTitle, Spinner, TableShell } from '../components/ui'
 import ImagePreview from '../components/ImagePreview'
@@ -59,7 +59,7 @@ export default function Content() {
       ])
       setData({ slides, testimonials, blocks, messages })
     } catch (err) {
-      setError(err.status === undefined ? 'Cannot reach the API.' : err.message)
+      setError(err.status === undefined ? apiUnreachableMessage() : err.message)
     } finally {
       setLoading(false)
     }

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { KeyRound, Loader2, Save } from 'lucide-react'
-import { api } from '../lib/api'
+import { api, apiUnreachableMessage } from '../lib/api'
 import { Alert, Modal, PageTitle, Spinner } from '../components/ui'
 import { useAuth } from '../context/AuthContext'
 
@@ -32,7 +32,7 @@ export default function Settings() {
       setSettings(list)
       setDraft(Object.fromEntries(list.map((entry) => [entry.key, entry.value])))
     } catch (err) {
-      setError(err.status === undefined ? 'Cannot reach the API.' : err.message)
+      setError(err.status === undefined ? apiUnreachableMessage() : err.message)
     } finally {
       setLoading(false)
     }

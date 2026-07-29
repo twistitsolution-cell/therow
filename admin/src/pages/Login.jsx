@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Loader2, Lock, Mail } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
+import { apiUnreachableMessage } from '../lib/api'
 import { Alert } from '../components/ui'
 
 export default function Login() {
@@ -20,7 +21,7 @@ export default function Login() {
     } catch (err) {
       setError(
         err.status === undefined
-          ? 'Cannot reach the API. Check that TheRow.API is running on port 5080.'
+          ? apiUnreachableMessage()
           : err.message,
       )
       setBusy(false)
