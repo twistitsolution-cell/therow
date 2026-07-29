@@ -75,7 +75,16 @@ export default function Booking() {
     try {
       const results = await api.availability({ checkIn, checkOut, adults, children })
       setOptions(results ?? [])
-      setStep(2)
+
+      // Arriving from a room card or an offer with ?roomType=<slug>: preselect that category if it
+      // is genuinely bookable, so the guest is not asked to choose something they already chose.
+      const wanted = params.get('roomType')
+      const match = wanted
+        ? (results ?? []).find((o) => o.slug === wanted && o.availableRooms > 0 && o.fitsParty)
+        : null
+
+      setSelected(match ?? null)
+      setStep(match ? 3 : 2)
     } catch (err) {
       setOptions([])
       setError(
@@ -86,11 +95,11 @@ export default function Booking() {
     } finally {
       setSearching(false)
     }
-  }, [checkIn, checkOut, adults, children, isOffline])
+  }, [checkIn, checkOut, adults, children, isOffline, params])
 
   // Auto-run the search when the page is opened from the quick-search widget.
   useEffect(() => {
-    if (params.get('checkIn') && params.get('checkOut')) search()
+    if ((params.get('checkIn') && params.get('checkOut')) || params.get('roomType')) search()
     // Intentionally runs once on mount: later searches are explicit user actions.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
