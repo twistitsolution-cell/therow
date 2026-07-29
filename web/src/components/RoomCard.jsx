@@ -38,14 +38,14 @@ export default function RoomCard({ roomType, index = 0, availability = null, sta
   return (
     <article className="group card-hover flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-background shadow-soft">
       <div className="relative">
-        {/* Autoplay is staggered by card so the grid does not flip in lockstep — still inside
-            the 2.5–3s band. The carousel pauses itself on hover. */}
+        {/* One second per image, staggered slightly per card so the grid does not flip in
+            lockstep. The carousel pauses itself on hover. */}
         <ImageCarousel
           images={images}
           aspect="aspect-[4/3]"
           rounded="rounded-none"
           autoPlay
-          interval={2600 + (index % 4) * 180}
+          interval={1000 + (index % 4) * 60}
           priority={index < 3}
           showCounter={false}
         />

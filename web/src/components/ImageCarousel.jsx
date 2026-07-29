@@ -56,13 +56,13 @@ export default function ImageCarousel({
           alt={i === index ? (image.caption ?? '') : ''}
           aria-hidden={i !== index}
           loading={priority && i === 0 ? 'eager' : 'lazy'}
-          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-out ${
+          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ease-out ${
             i === index ? 'opacity-100' : 'opacity-0'
           }`}
           // The slow push-in runs only on the frame in view.
           style={{
             transform: i === index ? 'scale(1.05)' : 'scale(1)',
-            transition: 'opacity 700ms ease-out, transform 6000ms linear',
+            transition: 'opacity 500ms ease-out, transform 6000ms linear',
           }}
         />
       ))}

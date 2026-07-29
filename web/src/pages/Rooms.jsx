@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import { CalendarDays, Loader2, SlidersHorizontal, Users } from 'lucide-react'
 import PageHeader from '../components/PageHeader'
 import RoomCard from '../components/RoomCard'
@@ -15,11 +16,14 @@ const today = () => toDateInput(new Date())
 
 export default function Rooms() {
   const { roomTypes, money, currency, etbPerUsd } = useSite()
+  const [params] = useSearchParams()
 
-  const [checkIn, setCheckIn] = useState(() => toDateInput(addDays(new Date(), 1)))
-  const [checkOut, setCheckOut] = useState(() => toDateInput(addDays(new Date(), 3)))
-  const [adults, setAdults] = useState(2)
-  const [children, setChildren] = useState(0)
+  // The stay picker hands the dates over in the query string, so arriving here already shows
+  // what is bookable for them — no second entry, no confirmation step.
+  const [checkIn, setCheckIn] = useState(() => params.get('checkIn') || toDateInput(addDays(new Date(), 1)))
+  const [checkOut, setCheckOut] = useState(() => params.get('checkOut') || toDateInput(addDays(new Date(), 3)))
+  const [adults, setAdults] = useState(() => Number(params.get('adults')) || 2)
+  const [children, setChildren] = useState(() => Number(params.get('children')) || 0)
 
   const [maxPrice, setMaxPrice] = useState(0) // 0 = no ceiling
   const [typeFilter, setTypeFilter] = useState('all')

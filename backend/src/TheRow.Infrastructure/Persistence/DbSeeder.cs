@@ -288,7 +288,7 @@ public static class DbSeeder
                     Title = "Unwind in luxury at The Row",
                     Subtitle = "Forty-one residences and suites, five minutes from Bole International.",
                     ImageUrl = "/images/hero/entrance.webp",
-                    CtaLabel = "Check Availability", CtaUrl = "/booking", SortOrder = 1, IsActive = true
+                    CtaLabel = "Book Your Stay", CtaUrl = "/booking", SortOrder = 1, IsActive = true
                 },
                 new HeroSlide
                 {

@@ -21,6 +21,7 @@ import Reveal from '../components/Reveal'
 import { useSite } from '../context/SiteContext'
 import { api } from '../lib/api'
 import { addDays, formatLongDate, nightsBetween, toDateInput } from '../lib/format'
+import { netlifyForms, isApiUnreachable } from '../lib/netlifyForms'
 
 const STEPS = [
   { id: 1, label: 'Dates' },
@@ -64,6 +65,9 @@ export default function Booking() {
   })
   const [submitting, setSubmitting] = useState(false)
   const [confirmation, setConfirmation] = useState(null)
+  // True when there is no API behind this deploy: the flow becomes an enquiry, not a booking.
+  const [enquiryMode, setEnquiryMode] = useState(false)
+  const [roomPreference, setRoomPreference] = useState('')
 
   const nights = nightsBetween(checkIn, checkOut)
 
@@ -87,11 +91,16 @@ export default function Booking() {
       setStep(match ? 3 : 2)
     } catch (err) {
       setOptions([])
-      setError(
-        isOffline || err.status === undefined
-          ? 'We cannot reach live availability right now. Please call reservations and we will book you in directly.'
-          : err.message,
-      )
+
+      if (isApiUnreachable(err)) {
+        // Take the details anyway and send them through as an enquiry — far better than
+        // telling the guest to phone and losing them.
+        setEnquiryMode(true)
+        setStep(3)
+        setError('')
+      } else {
+        setError(err.message)
+      }
     } finally {
       setSearching(false)
     }
@@ -117,10 +126,38 @@ export default function Booking() {
 
   const confirmBooking = async (event) => {
     event.preventDefault()
-    if (!selected) return
+    if (!selected && !enquiryMode) return
 
     setSubmitting(true)
     setError('')
+
+    if (enquiryMode) {
+      try {
+        await netlifyForms.bookingEnquiry({
+          firstName: guest.firstName,
+          lastName: guest.lastName,
+          email: guest.email,
+          phone: guest.phone,
+          country: guest.country,
+          roomTypeName: roomPreference || 'No preference',
+          checkIn,
+          checkOut,
+          nights,
+          adults,
+          children,
+          payment: guest.payment,
+          requests: guest.requests,
+        })
+        setConfirmation({ isEnquiry: true, guestFirstName: guest.firstName, checkIn, checkOut, adults, children })
+        setStep(4)
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+      } catch (err) {
+        setError(err.message)
+      } finally {
+        setSubmitting(false)
+      }
+      return
+    }
 
     try {
       const booking = await api.createBooking({
@@ -425,7 +462,7 @@ export default function Booking() {
                 )}
 
                 {/* ============ Step 3: guest details ============ */}
-                {step === 3 && selected && (
+                {step === 3 && (selected || enquiryMode) && (
                   <motion.form
                     key="details"
                     onSubmit={confirmBooking}
@@ -564,7 +601,7 @@ export default function Booking() {
                           Confirming…
                         </>
                       ) : (
-                        `Confirm booking · ${money(selected.totalEtb)}`
+                        enquiryMode ? 'Send enquiry' : `Confirm booking · ${money(selected.totalEtb)}`
                       )}
                     </button>
                   </motion.form>
@@ -583,28 +620,33 @@ export default function Booking() {
                       <Check className="h-8 w-8" strokeWidth={1.5} />
                     </span>
 
-                    <h2 className="heading-display mt-7 text-3xl sm:text-4xl">Your room is held</h2>
+                    <h2 className="heading-display mt-7 text-3xl sm:text-4xl">
+                      {confirmation.isEnquiry ? 'Enquiry received' : 'Your room is held'}
+                    </h2>
                     <p className="mx-auto mt-4 max-w-md text-[15px] leading-relaxed text-text-secondary">
-                      Thank you, {confirmation.guestFirstName}. Our reservations team will confirm payment with you
-                      shortly. Keep your reference safe.
+                      {confirmation.isEnquiry
+                        ? `Thank you, ${confirmation.guestFirstName}. Reservations will confirm availability and rates for these dates by email, usually within a few hours. Nothing is charged yet.`
+                        : `Thank you, ${confirmation.guestFirstName}. Our reservations team will confirm payment with you shortly. Keep your reference safe.`}
                     </p>
 
-                    <div className="mx-auto mt-8 inline-block rounded-xl border border-brand/45 bg-background/92 px-8 py-5">
-                      <span className="block text-[10px] uppercase tracking-brand text-text-secondary">
-                        Confirmation reference
-                      </span>
-                      <span className="mt-1.5 block font-display text-3xl tracking-brand text-brand-ink">
-                        {confirmation.reference}
-                      </span>
-                    </div>
+                    {!confirmation.isEnquiry && (
+                      <div className="mx-auto mt-8 inline-block rounded-xl border border-brand/45 bg-background/92 px-8 py-5">
+                        <span className="block text-[10px] uppercase tracking-brand text-text-secondary">
+                          Confirmation reference
+                        </span>
+                        <span className="mt-1.5 block font-display text-3xl tracking-brand text-brand-ink">
+                          {confirmation.reference}
+                        </span>
+                      </div>
+                    )}
 
                     <dl className="mx-auto mt-9 max-w-sm space-y-3 border-t border-line pt-7 text-left text-[13px]">
                       {[
-                        ['Room', confirmation.roomTypeName],
+                        ...(confirmation.isEnquiry ? [] : [['Room', confirmation.roomTypeName]]),
                         ['Check-in', formatLongDate(confirmation.checkIn)],
                         ['Check-out', formatLongDate(confirmation.checkOut)],
                         ['Guests', `${confirmation.adults} adults${confirmation.children ? `, ${confirmation.children} children` : ''}`],
-                        ['Total', money(confirmation.totalEtb)],
+                        ...(confirmation.isEnquiry ? [] : [['Total', money(confirmation.totalEtb)]]),
                       ].map(([label, value]) => (
                         <div key={label} className="flex justify-between gap-4">
                           <dt className="text-text-secondary">{label}</dt>

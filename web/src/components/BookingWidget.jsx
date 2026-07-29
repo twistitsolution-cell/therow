@@ -7,8 +7,11 @@ import { addDays, toDateInput } from '../lib/format'
 const today = () => toDateInput(new Date())
 
 /**
- * The quick-search form. It does not query availability itself — it collects the stay and hands
- * off to /booking, which owns the whole reservation flow. One source of truth for the search.
+ * Stay picker. It does not query availability itself — it collects the stay and hands off to
+ * /rooms, which filters live and needs no further action from the guest.
+ *
+ * It deliberately does NOT say "check availability": there is no checking step anywhere in the
+ * site any more. Picking dates takes you straight to what is bookable.
  *
  * Variants:
  *   panel   — standalone card (hero, mobile)
@@ -35,7 +38,7 @@ export default function BookingWidget({ variant = 'panel', className = '' }) {
   const submit = (event) => {
     event.preventDefault()
     const params = new URLSearchParams({ checkIn, checkOut, adults: String(adults), children: String(children) })
-    navigate(`/booking?${params}`)
+    navigate(`/rooms?${params}`)
   }
 
   const compact = variant === 'bar'
@@ -45,7 +48,7 @@ export default function BookingWidget({ variant = 'panel', className = '' }) {
     <form
       onSubmit={submit}
       className={`${compact ? '' : 'rounded-2xl border border-line bg-background/95 p-5 shadow-luxury backdrop-blur-xl sm:p-6'} ${className}`}
-      aria-label="Check availability"
+      aria-label="Choose your stay"
     >
       <div className={`grid grid-cols-2 gap-3 ${stacked ? '' : 'lg:grid-cols-[1fr_1fr_auto_auto_auto]'}`}>
         <div>

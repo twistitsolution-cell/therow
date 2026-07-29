@@ -6,17 +6,18 @@ import { useSite } from '../context/SiteContext'
 import BookingWidget from './BookingWidget'
 
 /**
- * Autoplay cadence — the fast end of the 3–4s band.
+ * Images advance every second, with a 500ms crossfade so each frame still settles briefly.
  *
- * The fade is shortened alongside it. Cadence and fade have to move together: at a 3s tick with
- * a 1s crossfade the frame is only settled for two thirds of its turn, which reads as constant
- * motion rather than a sequence of photographs. At 800ms it settles for 2.2s.
- *
- * Copy is the constraint on going faster still — a twelve-word subtitle needs roughly this long
- * to read.
+ * THE COPY IS DECOUPLED FROM THE IMAGES. At a 1s cadence a headline and subtitle cannot be read
+ * before they are replaced, so the hero holds one message while the photography cycles behind
+ * it. `headline` below is the slide the copy comes from; `active` is only ever the picture.
+ * Re-coupling them means raising SLIDE_MS back to ~3000.
  */
-const SLIDE_MS = 3000
-const FADE_MS = 800
+const SLIDE_MS = 1000
+const FADE_MS = 500
+
+/** Which slide supplies the fixed headline, subtitle and call to action. */
+const HEADLINE_SLIDE = 0
 
 /** A drag shorter than this is a tap, not a swipe. */
 const SWIPE_THRESHOLD = 50
@@ -80,7 +81,7 @@ export default function Hero() {
   }
 
   if (count === 0) return null
-  const slide = slides[active]
+  const slide = slides[HEADLINE_SLIDE] ?? slides[0]
 
   return (
     <section
@@ -139,7 +140,7 @@ export default function Hero() {
               until the outgoing exit animation completes, and framer drives that on rAF — which
               is frozen while the tab is hidden, leaving the headline stuck on a stale slide. A
               plain keyed mount swaps the text immediately and animates it in. */}
-          <div key={slide.id ?? active}>
+          <div>
             <motion.div
               initial={{ opacity: 0, y: 22 }}
               animate={{ opacity: 1, y: 0 }}

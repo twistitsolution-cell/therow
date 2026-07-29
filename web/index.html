@@ -47,6 +47,44 @@
     </script>
   </head>
   <body>
+    <!--
+      Netlify Forms detection.
+
+      Netlify parses the DEPLOYED HTML at build time to discover forms; it never sees the React
+      tree. These hidden copies are what register "booking-enquiry" and "contact" so the runtime
+      submissions in src/lib/netlifyForms.js are accepted rather than 404'd.
+
+      Field names MUST match the keys posted from that module. They are the fallback path used
+      whenever the .NET API is unreachable — which is the normal state of a frontend-only deploy.
+      Delete these and the live site silently stops capturing enquiries.
+    -->
+    <form name="booking-enquiry" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="booking-enquiry" />
+      <input type="text" name="bot-field" />
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <input type="text" name="phone" />
+      <input type="text" name="country" />
+      <input type="text" name="room-type" />
+      <input type="text" name="check-in" />
+      <input type="text" name="check-out" />
+      <input type="text" name="nights" />
+      <input type="text" name="adults" />
+      <input type="text" name="children" />
+      <input type="text" name="payment-preference" />
+      <textarea name="requests"></textarea>
+    </form>
+
+    <form name="contact" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="contact" />
+      <input type="text" name="bot-field" />
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <input type="text" name="phone" />
+      <input type="text" name="subject" />
+      <textarea name="message"></textarea>
+    </form>
+
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

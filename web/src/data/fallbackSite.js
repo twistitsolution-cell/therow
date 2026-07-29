@@ -39,7 +39,7 @@ export const fallbackSite = {
         'Forty-one residences and suites, five minutes from Bole International.',
       imageUrl: '/images/hero/entrance.webp',
       videoUrl: '',
-      ctaLabel: 'Check Availability',
+      ctaLabel: 'Book Your Stay',
       ctaUrl: '/booking',
       sortOrder: 1,
       isActive: true,

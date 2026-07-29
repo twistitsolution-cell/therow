@@ -5,6 +5,7 @@ import Reveal from '../components/Reveal'
 import { useSite } from '../context/SiteContext'
 import { api } from '../lib/api'
 import LocationMap from '../components/LocationMap'
+import { netlifyForms, isApiUnreachable } from '../lib/netlifyForms'
 
 export default function Contact() {
   const { settings, block } = useSite()
@@ -26,12 +27,23 @@ export default function Contact() {
       setStatus('sent')
       setForm({ name: '', email: '', phone: '', subject: '', message: '' })
     } catch (err) {
+      // No API behind this deploy — capture the message through Netlify Forms rather than
+      // losing it. The guest still gets a confirmation; the hotel still gets the enquiry.
+      if (isApiUnreachable(err)) {
+        try {
+          await netlifyForms.contact(form)
+          setStatus('sent')
+          setForm({ name: '', email: '', phone: '', subject: '', message: '' })
+          return
+        } catch (fallbackError) {
+          setStatus('error')
+          setError(fallbackError.message)
+          return
+        }
+      }
+
       setStatus('error')
-      setError(
-        err.status === undefined
-          ? 'We could not send that just now. Please call or message us on WhatsApp instead.'
-          : err.message,
-      )
+      setError(err.message)
     }
   }
 
