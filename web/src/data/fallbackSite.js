@@ -101,7 +101,7 @@ export const fallbackSite = {
       eyebrow: 'All-day dining',
       title: 'La Nouvelle',
       subtitle:
-        'International plates, Ethiopian classics, and bread baked each morning.',
+        'A wide variety of international cuisines, next door to the hotel.',
       imageUrl: '/images/feature/restaurant.webp',
       videoUrl: '',
       ctaLabel: 'Our Restaurant',
@@ -266,7 +266,7 @@ export const fallbackSite = {
 
   featuredAmenities: [
     { id: 13, slug: 'front-desk-24-7', name: '24/7 Front Desk', description: 'A manned reception at any hour, every day of the year.', icon: 'concierge-bell', category: 'Hotel', imageUrl: '/images/feature/reception.webp', isFeatured: true, displayOrder: 20 },
-    { id: 22, slug: 'la-nouvelle', name: 'La Nouvelle Restaurant', description: 'Next door to the hotel. A wide range of international cuisines prepared by experienced chefs using high-quality ingredients.', icon: 'chef-hat', category: 'Dining', imageUrl: '/images/feature/restaurant.webp', isFeatured: true, displayOrder: 40 },
+    { id: 22, slug: 'la-nouvelle', name: 'La Nouvelle Restaurant', description: 'Next door to the hotel. A wide variety of international cuisines, prepared by experienced chefs using high-quality ingredients.', icon: 'chef-hat', category: 'Dining', imageUrl: '/images/feature/restaurant.webp', isFeatured: true, displayOrder: 40 },
     { id: 24, slug: 'meeting-hall', name: 'Meeting Hall', description: 'A configurable hall for conferences, training and private events.', icon: 'presentation', category: 'Business', imageUrl: '/images/feature/meeting.webp', isFeatured: true, displayOrder: 50 },
     { id: 26, slug: 'airport-shuttle', name: 'Airport Shuttle', description: 'Five minutes from Bole International Airport, with transfers on request.', icon: 'plane', category: 'Transport', imageUrl: '/images/feature/facade.webp', isFeatured: true, displayOrder: 60 },
     { id: 17, slug: 'atm', name: 'ATM & Currency Exchange', description: 'On-site ATM and foreign exchange desk.', icon: 'banknote', category: 'Hotel', imageUrl: '', isFeatured: true, displayOrder: 24 },
@@ -471,8 +471,8 @@ export const galleryImages = [
 
   { url: '/images/feature/restaurant.webp', category: 'Dining', caption: 'La Nouvelle' },
   { url: '/images/gallery/restaurant-a.webp', category: 'Dining', caption: 'La Nouvelle boulangerie' },
-  { url: '/images/gallery/restaurant-b.webp', category: 'Dining', caption: 'Fresh bread daily' },
-  { url: '/images/feature/restaurant-food.webp', category: 'Dining', caption: 'Breakfast at La Nouvelle' },
+  { url: '/images/gallery/restaurant-b.webp', category: 'Dining', caption: 'La Nouvelle boulangerie counter' },
+  { url: '/images/feature/restaurant-food.webp', category: 'Dining', caption: 'A plate at La Nouvelle' },
 
   { url: '/images/bath/bath-1.webp', category: 'Bathrooms', caption: 'Walk-in rain shower' },
   { url: '/images/bath/bath-2.webp', category: 'Bathrooms', caption: 'Bathroom' },

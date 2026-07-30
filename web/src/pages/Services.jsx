@@ -19,13 +19,14 @@ const CATEGORIES = [
 const HIGHLIGHTS = [
   {
     title: 'La Nouvelle Restaurant',
-    body: 'International cuisine served all day, with Ethiopian classics prepared to order. Breakfast runs early for guests catching morning flights, and the kitchen stays reachable through room service long after it closes to the floor.',
+    body:
+      'Located next to The Row Residential Hotel, La Nouvelle Restaurant offers a wide variety of delicious food options for our guests. Enjoy a diverse selection of international cuisines, thoughtfully prepared by experienced chefs using high-quality ingredients. Whether you prefer familiar favourites or wish to explore new flavours, La Nouvelle Restaurant provides a welcoming and satisfying dining experience.',
     image: '/images/feature/restaurant.webp',
-    tags: ['All-day dining', 'Boulangerie', 'Room service'],
+    tags: ['Next door', 'International cuisine', 'Boulangerie'],
   },
   {
     title: 'Meetings & Events',
-    body: 'A configurable meeting hall for conferences, training days and private functions, with printing, scanning and secretarial support arranged through the front desk. Catering comes from the same kitchen as the restaurant.',
+    body: 'A configurable meeting hall for conferences, training days and private functions, with printing, scanning and secretarial support arranged through the front desk.',
     image: '/images/feature/meeting.webp',
     tags: ['Meeting hall', 'Business services', 'Catering'],
   },

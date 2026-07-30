@@ -119,12 +119,19 @@ export default function Footer() {
       <div className="border-t border-line">
         <div className="container-luxe flex flex-col items-center justify-between gap-3 py-6 text-[11px] text-text-secondary sm:flex-row">
           <p>© {year} The Row Residential Hotel. All rights reserved.</p>
-          <p className="flex items-center gap-2">
+
+          <p className="flex items-center gap-2 order-first sm:order-none">
             <span className="font-semibold uppercase tracking-brand">Reliable</span>
             <span className="h-1 w-1 rounded-full bg-brand" />
             <span className="font-semibold uppercase tracking-brand">Luxurious</span>
             <span className="h-1 w-1 rounded-full bg-brand" />
             <span className="font-semibold uppercase tracking-brand">Trustworthy</span>
+          </p>
+
+          {/* Build credit. Plain text rather than a link because no Twist IT Solution URL has
+              been supplied — add an <a> here once there is one to point at. */}
+          <p>
+            Powered by <span className="font-semibold text-brand-ink">Twist IT Solution</span>
           </p>
         </div>
       </div>

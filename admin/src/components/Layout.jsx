@@ -118,6 +118,10 @@ export default function Layout() {
             <LogOut className="h-4 w-4" strokeWidth={1.75} />
             Sign out
           </button>
+
+          <p className="mt-3 border-t border-line pt-3 text-center text-[10px] text-text-secondary">
+            Powered by <span className="font-semibold text-brand-ink">Twist IT Solution</span>
+          </p>
         </div>
       </aside>
 

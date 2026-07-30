@@ -33,6 +33,6 @@ export const faqs = [
   },
   {
     q: 'Do you have space for meetings or events?',
-    a: 'We have a configurable meeting hall for conferences, training days and private functions, with catering from La Nouvelle Restaurant next door and business services on request.',
+    a: 'We have a configurable meeting hall for conferences, training days and private functions, and business services on request. La Nouvelle Restaurant is next door.',
   },
 ]

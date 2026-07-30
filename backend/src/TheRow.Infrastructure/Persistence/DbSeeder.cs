@@ -128,7 +128,7 @@ public static class DbSeeder
             New("elevator", "Lift Access", "Every floor served by passenger lifts.", "move-vertical", AmenityCategory.Hotel, 26),
 
 
-            New("la-nouvelle", "La Nouvelle Restaurant", "Next door to the hotel. A wide range of international cuisines prepared by experienced chefs using high-quality ingredients.", "chef-hat", AmenityCategory.Dining, 40, featured: true, image: "/images/feature/restaurant.webp"),
+            New("la-nouvelle", "La Nouvelle Restaurant", "Next door to the hotel. A wide variety of international cuisines, prepared by experienced chefs using high-quality ingredients.", "chef-hat", AmenityCategory.Dining, 40, featured: true, image: "/images/feature/restaurant.webp"),
             New("bar-lounge", "Bar & Lounge", "Cocktails, Ethiopian single-origin coffee and a quiet place to sit.", "wine", AmenityCategory.Dining, 41, image: "/images/gallery/restaurant-a.webp"),
             New("breakfast", "Daily Breakfast", "Hot and continental breakfast served each morning.", "croissant", AmenityCategory.Dining, 42, image: "/images/feature/restaurant-food.webp"),
 
@@ -324,7 +324,7 @@ public static class DbSeeder
                 {
                     Eyebrow = "All-day dining",
                     Title = "La Nouvelle",
-                    Subtitle = "International plates, Ethiopian classics, and bread baked each morning.",
+                    Subtitle = "A wide variety of international cuisines, next door to the hotel.",
                     ImageUrl = "/images/feature/restaurant.webp",
                     CtaLabel = "Our Restaurant", CtaUrl = "/services", SortOrder = 6, IsActive = true
                 },
