@@ -12,6 +12,9 @@ namespace TheRow.Infrastructure.Persistence;
 /// </summary>
 public static class DbSeeder
 {
+    /// <summary>Rooms allocated per floor before the numbering rolls over.</summary>
+    private const int RoomsPerFloor = 8;
+
     public static async Task SeedAsync(AppDbContext db, IPasswordHasher hasher, string adminEmail, string adminPassword)
     {
         await db.Database.MigrateAsync();
@@ -244,9 +247,19 @@ public static class DbSeeder
                     roomType.RoomTypeAmenities.Add(new RoomTypeAmenity { AmenityId = amenityId });
             }
 
+            // Each category starts on a fresh floor. Filling floors sequentially across
+            // categories produced runs like "Junior Suite 301-303, Apartment 304-…", which is
+            // not how a property numbers itself and makes the housekeeping list hard to read.
+            if (roomsOnFloor > 0)
+            {
+                floor++;
+                roomsOnFloor = 0;
+            }
+            roomNumber = floor * 100 + 1;
+
             for (var i = 0; i < d.RoomCount; i++)
             {
-                if (roomsOnFloor == 8)
+                if (roomsOnFloor == RoomsPerFloor)
                 {
                     floor++;
                     roomsOnFloor = 0;
