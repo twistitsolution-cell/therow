@@ -112,7 +112,7 @@ public static class DbSeeder
             New("kettle", "Tea & Coffee Kettle", "Electric kettle with a daily-replenished tea and coffee tray.", "coffee", AmenityCategory.Room, 5),
             New("writing-desk", "Writing Desk", "A proper desk and task chair for guests working from the room.", "pen-tool", AmenityCategory.Room, 6),
             New("safety-box", "In-Room Safe", "Digital safety box sized for a laptop.", "lock", AmenityCategory.Room, 7),
-            New("telephone", "Direct-Dial Telephone", "Room telephone with direct line to the 24-hour front desk.", "phone", AmenityCategory.Room, 8),
+            New("telephone", "Front Desk Telephone", "An internal handset connected to the 24-hour front desk. It does not dial external numbers.", "phone", AmenityCategory.Room, 8),
             New("iron", "Iron & Ironing Board", "Provided in every room and apartment.", "shirt", AmenityCategory.Room, 9),
             New("housekeeping", "Daily Housekeeping", "Full servicing every day, turndown on request.", "sparkles", AmenityCategory.Room, 10),
             New("private-bathroom", "Private Bathroom", "Walk-in rain shower, hot water around the clock and premium toiletries.", "shower-head", AmenityCategory.Room, 11),
@@ -127,10 +127,8 @@ public static class DbSeeder
             New("laundry", "Laundry & Dry Cleaning", "Same-day laundry and pressing service.", "washing-machine", AmenityCategory.Hotel, 25),
             New("elevator", "Lift Access", "Every floor served by passenger lifts.", "move-vertical", AmenityCategory.Hotel, 26),
 
-            New("wellness-center", "Wellness Centre", "A quiet space for treatments, sauna and recovery.", "flower-2", AmenityCategory.Wellness, 30, featured: true),
-            New("fitness-center", "Fitness Centre", "Cardio and resistance equipment, open early until late.", "dumbbell", AmenityCategory.Wellness, 31, featured: true),
 
-            New("la-nouvelle", "La Nouvelle Restaurant", "International cuisine served all day, with Ethiopian classics prepared to order.", "chef-hat", AmenityCategory.Dining, 40, featured: true, image: "/images/feature/restaurant.webp"),
+            New("la-nouvelle", "La Nouvelle Restaurant", "Next door to the hotel. A wide range of international cuisines prepared by experienced chefs using high-quality ingredients.", "chef-hat", AmenityCategory.Dining, 40, featured: true, image: "/images/feature/restaurant.webp"),
             New("bar-lounge", "Bar & Lounge", "Cocktails, Ethiopian single-origin coffee and a quiet place to sit.", "wine", AmenityCategory.Dining, 41, image: "/images/gallery/restaurant-a.webp"),
             New("breakfast", "Daily Breakfast", "Hot and continental breakfast served each morning.", "croissant", AmenityCategory.Dining, 42, image: "/images/feature/restaurant-food.webp"),
 
@@ -171,46 +169,46 @@ public static class DbSeeder
                 "standard-room", "Standard Room",
                 "A calm, light-filled room with a king bed, work desk and city outlook.",
                 "Our Standard Room is the quiet default of the house — 28 square metres of soft neutrals, a king bed dressed in white cotton, and a proper desk beneath the window. Blackout curtains and double glazing keep Bole's traffic where it belongs. The marble bathroom carries a walk-in rain shower and full-size toiletries.",
-                6500m, 2, 1, 28, "1 King bed",
+                6500m, 2, 0, 28, "1 King bed",
                 "/images/rooms/standard-1.webp",
                 new[] { "/images/rooms/standard-1.webp", "/images/rooms/standard-2.webp", "/images/rooms/standard-3.webp", "/images/bath/bath-1.webp" },
-                Array.Empty<string>(), 16, 1),
+                Array.Empty<string>(), 13, 1),
 
             new RoomTypeSeed(
                 "twin-room", "Twin Room",
                 "Two full-size beds, generous floor space and a dedicated work corner.",
                 "Built for colleagues travelling together or friends who would rather not share. Two full-size beds sit under a panelled headboard, with a writing desk, lounge chair and wide wardrobe. The layout keeps both beds clear of the walkway, so neither guest is climbing over luggage at midnight.",
-                7200m, 2, 1, 32, "2 Twin beds",
+                7200m, 2, 0, 32, "2 Twin beds",
                 "/images/rooms/twin-1.webp",
                 new[] { "/images/rooms/twin-1.webp", "/images/rooms/twin-2.webp", "/images/rooms/twin-3.webp", "/images/rooms/twin-4.webp" },
-                Array.Empty<string>(), 10, 2),
+                Array.Empty<string>(), 2, 2),
 
             new RoomTypeSeed(
                 "family-room", "Family Room",
-                "A wide, warm room with space for children to actually be children.",
-                "The Family Room trades the compact efficiency of a Standard for genuine floor space — 42 square metres, a king bed, and room for an additional bed or cot without the furniture feeling shoved aside. Deep wardrobes swallow a family's worth of luggage, and the bathroom is sized for a morning rush.",
-                9500m, 2, 2, 42, "1 King bed + extra bed on request",
+                "Two separate bedrooms, each with its own king bed and bathroom.",
+                "The Family Room is two proper bedrooms rather than one large one. Each has its own king-size bed and its own bathroom, so two couples — or parents and older children — get real privacy instead of a folding bed at the end of someone else's room. There is one of these in the building, so it goes early.",
+                9500m, 4, 0, 42, "2 Bedrooms · 2 King beds · 2 bathrooms",
                 "/images/rooms/family-1.webp",
                 new[] { "/images/rooms/family-1.webp", "/images/rooms/family-2.webp", "/images/rooms/family-3.webp", "/images/bath/bath-2.webp" },
-                new[] { "room-service" }, 6, 3),
+                new[] { "room-service" }, 1, 3),
 
             new RoomTypeSeed(
                 "junior-suite", "Junior Suite",
                 "An open suite pairing a king bedroom with its own seating salon.",
                 "Our Junior Suite opens into a lounge before it reaches the bed — armchairs, a low table and a second television, set apart from the sleeping area by the room's own geometry rather than a door. At 55 square metres it is the right room for a long stay, a working trip, or an evening when you would rather receive guests than meet them in the lobby.",
-                12000m, 2, 2, 55, "1 King bed + lounge salon",
+                12000m, 2, 0, 55, "1 King bed + lounge salon",
                 "/images/rooms/junior-suite-1.webp",
                 new[] { "/images/rooms/junior-suite-1.webp", "/images/rooms/junior-suite-2.webp", "/images/rooms/junior-suite-3.webp", "/images/rooms/junior-suite-4.webp", "/images/rooms/junior-suite-5.webp" },
-                new[] { "room-service", "laundry" }, 5, 4),
+                new[] { "room-service", "laundry" }, 3, 4),
 
             new RoomTypeSeed(
-                "apartment", "Apartment",
+                "apartment", "One Bedroom Apartment",
                 "A one-bedroom residence with a full fitted kitchen and separate living room.",
                 "The Apartment is what gives the property its name. A separate bedroom, a living room with proper sofas, and a fully fitted kitchen — refrigerator, microwave, hob, extractor and everything needed to cook a real meal. Guests stay here for weeks rather than nights, and the layout is built for it: laundry service, daily housekeeping, and the whole hotel downstairs when you would rather not cook at all.",
-                15500m, 3, 2, 78, "1 King bed + living room + fitted kitchen",
+                15500m, 2, 0, 78, "1 King bed + living room + fitted kitchen",
                 "/images/apartment/salon-1.webp",
                 new[] { "/images/apartment/salon-1.webp", "/images/apartment/salon-2.webp", "/images/apartment/salon-3.webp", "/images/apartment/kitchen-1.webp", "/images/apartment/kitchen-2.webp", "/images/apartment/kitchen-3.webp" },
-                new[] { "kitchenette", "room-service", "laundry" }, 4, 5)
+                new[] { "kitchenette", "room-service", "laundry" }, 22, 5)
         };
 
         var roomNumber = 101;

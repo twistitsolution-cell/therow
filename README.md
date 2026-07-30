@@ -79,7 +79,7 @@ dotnet ef migrations add <Name> --project src/TheRow.Infrastructure --startup-pr
 | Rooms | Live filtering by party size, rate ceiling and sort order |
 | Room detail | Large carousel, thumbnail rail, amenities, full gallery, sticky rate panel |
 | Booking | Four-step flow: dates → live availability → guest details → confirmation with reference |
-| Experiences | Dining, wellness, business and transport, with a filterable amenity grid |
+| Experiences | Dining, business and transport, with a filterable amenity grid |
 | Gallery | Masonry layout, category filter, keyboard-driven lightbox |
 | Contact | Details, form, embedded Google map |
 
@@ -162,8 +162,9 @@ seeder when content changes materially.
 - **Rates** (ETB 6,500–15,500) are realistic for the market but are placeholders. Set the real
   ones in **Admin → Room Types**.
 - **Room categories** are the property's real five — Standard, Twin, Family, Junior Suite and
-  Apartment — rather than the generic Studio/Deluxe/1BR/Suite ladder, so every card carries
-  genuine photography. Add or rename categories in **Admin → Room Types** at any time.
-- **No photography exists** for the wellness centre or fitness room. Those two cards still borrow
-  room and bathroom imagery. Commission or supply real shots and swap them in
-  **Admin → Amenities**. (La Nouvelle and the meeting hall now have their own photographs.)
+  One Bedroom Apartment — with the property's real inventory (13 / 2 / 1 / 3 / 22, totalling 41)
+  and real capacities. Add or rename categories in **Admin → Room Types** at any time.
+- **La Nouvelle Restaurant is next door to the hotel, not inside it** — the copy says so. It has
+  its own photography, as does the meeting hall.
+- **There is no gym and no sauna**, and **Telebirr is not accepted.** All three were assumptions
+  in an earlier draft and have been removed from the seed, the booking flow and the site copy.

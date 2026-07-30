@@ -91,18 +91,30 @@ startup. Seeded content:
 - **1 administrator** from `Seed:AdminEmail` / `Seed:AdminPassword`
 - **16 settings** — contact details, map coordinates, VAT and service rates, exchange rate,
   check-in/out times
-- **28 amenities** across Room, Hotel, Wellness, Dining, Business and Transport
-- **5 room types and 41 rooms**, allocated 8 per floor from room 101:
+- **26 amenities** across Room, Hotel, Dining, Business and Transport
+- **5 room types and 41 rooms**, allocated 8 per floor from room 101 — the property's real
+  inventory and capacities:
 
   | Category | Rooms | Rate (ETB) | Size | Sleeps |
   | --- | --- | --- | --- | --- |
-  | Standard Room | 16 | 6,500 | 28 m² | 2 + 1 |
-  | Twin Room | 10 | 7,200 | 32 m² | 2 + 1 |
-  | Family Room | 6 | 9,500 | 42 m² | 2 + 2 |
-  | Junior Suite | 5 | 12,000 | 55 m² | 2 + 2 |
-  | Apartment | 4 | 15,500 | 78 m² | 3 + 2 |
+  | Standard Room | 13 | 6,500 | 28 m² | 2 |
+  | Twin Room | 2 | 7,200 | 32 m² | 2 |
+  | Family Room | 1 | 9,500 | 42 m² | 4 |
+  | Junior Suite | 3 | 12,000 | 55 m² | 2 |
+  | One Bedroom Apartment | 22 | 15,500 | 78 m² | 2 |
+
+  The Family Room is two separate bedrooms, each with a king bed and its own bathroom — not one
+  large room with an extra bed.
+
+  **Capacity is a headcount, not an adults-plus-children split.** The property states it that way,
+  so `MaxChildren` is 0 on every category and `AvailabilityService` measures the whole party
+  against total capacity. Enforcing a separate children allowance against this data would reject
+  every party containing a child, from every room in the building.
 
 - **3 hero slides**, **4 testimonials** and **6 content blocks**
+
+  There is **no gym and no sauna**, and **Telebirr is not accepted** — none of the three appear
+  anywhere in the seed or the UI.
 
 ### Resetting the development database
 

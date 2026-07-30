@@ -95,9 +95,15 @@ public class AvailabilityService : IAvailabilityService
                 total, taken, available, nights,
                 nightly, Math.Round(subtotal, 2), tax, Math.Round(subtotal + tax, 2),
                 rt.MaxAdults, rt.MaxChildren,
-                FitsParty: query.Adults <= rt.MaxAdults
-                           && query.Children <= rt.MaxChildren
-                           && party <= rt.MaxAdults + rt.MaxChildren));
+                // The property states capacity as a plain headcount — "2 adults", "4 adults" —
+                // not an adults-plus-children split, and MaxChildren is 0 on every category as a
+                // result. Enforcing a separate children allowance against that data would reject
+                // every party containing a child, from every room in the building.
+                //
+                // A child occupies a bed like anyone else, so the whole party is measured against
+                // the room's total capacity instead. Two adults and a child need a category that
+                // sleeps three.
+                FitsParty: party <= rt.MaxAdults + rt.MaxChildren));
         }
 
         return Result<IReadOnlyList<AvailabilityDto>>.Success(results);

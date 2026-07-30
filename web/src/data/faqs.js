@@ -17,11 +17,11 @@ export const faqs = [
   },
   {
     q: 'What is included in the rate?',
-    a: 'The nightly rate covers the room, high-speed Wi-Fi, daily housekeeping and use of the fitness centre and wellness area. Ethiopian VAT of 15% and a 10% service charge are added at checkout and shown before you confirm.',
+    a: 'The nightly rate covers the room, high-speed Wi-Fi and daily housekeeping. Ethiopian VAT of 15% and a 10% service charge are added at checkout and shown before you confirm.',
   },
   {
     q: 'How can I pay?',
-    a: 'Telebirr, CBE Birr, bank transfer, international cards, or cash at the front desk. Your room is held as soon as you book; our reservations team confirms payment with you directly afterwards.',
+    a: 'CBE Birr, bank transfer, international cards, or cash at the front desk. Telebirr is not accepted at present. Your room is held as soon as you book; our reservations team confirms payment with you directly afterwards.',
   },
   {
     q: 'Can I cancel or change my booking?',
@@ -33,6 +33,6 @@ export const faqs = [
   },
   {
     q: 'Do you have space for meetings or events?',
-    a: 'We have a configurable meeting hall for conferences, training days and private functions, with catering from La Nouvelle Restaurant and business services on request.',
+    a: 'We have a configurable meeting hall for conferences, training days and private functions, with catering from La Nouvelle Restaurant next door and business services on request.',
   },
 ]

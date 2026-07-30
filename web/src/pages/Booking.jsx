@@ -31,8 +31,10 @@ const STEPS = [
 ]
 
 const PAYMENT_METHODS = [
-  { key: 'Telebirr', label: 'Telebirr', icon: Smartphone, note: 'Mobile money — pay from your phone' },
-  { key: 'CbeBirr', label: 'CBE Birr', icon: Building2, note: 'Commercial Bank of Ethiopia' },
+  // Telebirr is deliberately absent: the property does not accept it. The PaymentProvider enum
+  // still carries the value so historic bookings keep rendering, but it cannot be chosen.
+  { key: 'CbeBirr', label: 'CBE Birr', icon: Smartphone, note: 'Mobile money — pay from your phone' },
+  { key: 'BankTransfer', label: 'Bank transfer', icon: Building2, note: 'Direct transfer, confirmed by reservations' },
   { key: 'Stripe', label: 'Card', icon: CreditCard, note: 'Visa / Mastercard, international' },
   { key: 'Cash', label: 'Pay at hotel', icon: Wallet, note: 'Settle on arrival at the front desk' },
 ]
@@ -61,7 +63,7 @@ export default function Booking() {
     phone: '',
     country: '',
     requests: '',
-    payment: 'Telebirr',
+    payment: 'CbeBirr',
   })
   const [submitting, setSubmitting] = useState(false)
   const [confirmation, setConfirmation] = useState(null)

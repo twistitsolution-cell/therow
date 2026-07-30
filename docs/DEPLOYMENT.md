@@ -242,5 +242,5 @@ database and are not recoverable from it. **Test a restore before go-live**, not
 - [ ] Real rates entered in Admin → Room Types
 - [ ] `currency.etb_per_usd` set to the current rate, with an owner for keeping it current
 - [ ] Placeholder testimonials replaced with verified reviews
-- [ ] Real photography supplied for restaurant, wellness, fitness and meeting hall
+- [ ] Real photography supplied for any remaining facility without its own images
 - [ ] Amharic copy reviewed by a native speaker before promoting the language switch

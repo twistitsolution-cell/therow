@@ -10,7 +10,6 @@ import { useSite } from '../context/SiteContext'
 const CATEGORIES = [
   { key: 'All', label: 'Everything' },
   { key: 'Dining', label: 'Dining' },
-  { key: 'Wellness', label: 'Wellness' },
   { key: 'Hotel', label: 'Hotel Services' },
   { key: 'Business', label: 'Business' },
   { key: 'Transport', label: 'Transport' },
@@ -23,12 +22,6 @@ const HIGHLIGHTS = [
     body: 'International cuisine served all day, with Ethiopian classics prepared to order. Breakfast runs early for guests catching morning flights, and the kitchen stays reachable through room service long after it closes to the floor.',
     image: '/images/feature/restaurant.webp',
     tags: ['All-day dining', 'Boulangerie', 'Room service'],
-  },
-  {
-    title: 'Wellness & Fitness',
-    body: 'A wellness centre for treatments and recovery, and a fitness room with cardio and resistance equipment. Both open early and close late, because the people who use them are usually working around a schedule that is not their own.',
-    image: '/images/bath/bath-1.webp',
-    tags: ['Wellness centre', 'Fitness room', 'Sauna'],
   },
   {
     title: 'Meetings & Events',
@@ -60,7 +53,7 @@ export default function Services() {
       <PageHeader
         eyebrow="The Experience"
         title="Services & Amenities"
-        subtitle="Dining, wellness, business and transport — everything the house keeps, under one roof in Bole."
+        subtitle="Dining, business and transport — everything the house keeps, a step from Millennium Hall."
         image="/images/apartment/salon-2.webp"
         breadcrumbs={[{ label: 'Experiences' }]}
       />

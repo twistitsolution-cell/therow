@@ -173,7 +173,7 @@ export default function Home() {
           <SectionHeading
             eyebrow="The Experience"
             title="Everything the house keeps"
-            subtitle="Dining, wellness, business and transport — all of it under one roof in Bole."
+            subtitle="Dining, business and transport — everything the house keeps, in Bole."
           />
 
           <RevealGroup className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
